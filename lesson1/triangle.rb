@@ -5,4 +5,4 @@ puts 'Enter the height of triangle'
 h = gets.to_i
 
 s = 0.5 * a * h
-puts 'Area of triangle - #{s}'
+puts "Area of triangle - #{s}"
