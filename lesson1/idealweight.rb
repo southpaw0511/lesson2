@@ -2,12 +2,12 @@ puts "What's your name? "
 name = gets.chomp
 
 puts "What's your height? "
-height = Integer(gets.chomp)
+height = gets.to_i
 
 ideal_weight = (height - 110) * 1.15
-puts '#{name}, your ideal weight is #{ideal_weight}'
+puts "#{name}, your ideal weight is #{ideal_weight}"
 
 if ideal_weight < 0
-  puts '#{name}, your weight is ideal now!'
+  puts "#{name}, your weight is ideal now!"
 end
 
