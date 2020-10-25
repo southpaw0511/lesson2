@@ -28,4 +28,3 @@ if a == b && b == c
   puts "It's isosceles triangle"
 else
   puts "It's not isosceles triangle"
-end
