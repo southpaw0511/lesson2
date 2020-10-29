@@ -1,8 +1,8 @@
-puts "Введите число: "
+puts 'Введите число: '
 day = gets.chomp.to_i
-puts "Введите месяц: "
+puts 'Введите месяц: '
 month = gets.chomp.to_i - 1 
-puts "Введите год: "
+puts 'Введите год: '
 year = gets.chomp.to_i
 
 # Months array
