@@ -1,16 +1,18 @@
 class Route
+  attr_reader :stations
+
   def initialize(first_s, last_s)
     @stations = [first_s, last_s]
     puts "First station - #{first_s}, and Last station is - #{last_s}"
   end
 
-  def stations
-    @stations.each do |station|
-      puts "Station - #{station}"
+  # def stations
+  #   @stations.each do |station|
+  #     puts "Station - #{station}"
       
-    end
-    puts @stations
-  end
+  #   end
+  #   puts @stations
+  # end
 
   def add_station(station)
     @stations.insert(-2, station)
@@ -21,8 +23,8 @@ class Route
   end
 end
 
-ali = Route.new('almaty', 'astana')
+route = Route.new('almaty', 'astana')
 
-ali.add_station('karaganda')
+route.add_station('karaganda')
 
-ali.stations
+route.stations
