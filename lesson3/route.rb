@@ -21,8 +21,8 @@ class Route
   end
 end
 
-route = Route.new('almaty', 'astana')
+ali = Route.new('almaty', 'astana')
 
-route.add_station('karaganda')
+ali.add_station('karaganda')
 
-route.stations
+ali.stations
