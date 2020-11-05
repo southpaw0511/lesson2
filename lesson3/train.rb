@@ -44,9 +44,9 @@ class Train
   def set_route(route) 
     puts '-------------' 
     puts route.inspect    
-    # @route = route           
-    # @current_station = @route.stations.first
-    # @current_station.add_train(self)
+    @route = route           
+    @current_station = @route.stations.first
+    @current_station.add_train(self)
   end
 
   def next_station
@@ -66,13 +66,13 @@ almaty.add_train("test")
 almaty.push_train("test")
 almaty.all_trains
 
-route = Route.new(almaty, astana)
-route.add_station(karaganda)
-route.stations
+route_one = Route.new(almaty, astana)
+route_one.add_station(karaganda)
+route_one.stations
 puts '----------------------'
 eurostar = Train.new(5, "passenger", 10)
 eurostar.speed_up(30)
 eurostar.current_speed
 eurostar.brake
 eurostar.add_wagons(4)
-eurostar.set_route(almaty)
+eurostar.set_route(route_one)
