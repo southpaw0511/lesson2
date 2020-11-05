@@ -9,7 +9,6 @@ class Station
 
   def add_train(train_name)
     @trains << train_name
-    puts "Trains: #{@trains}" 
   end
 
   def delete_train(train_name)
