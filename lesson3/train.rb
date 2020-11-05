@@ -1,3 +1,6 @@
+require_relative 'station.rb'
+require_relative 'route.rb'
+
 class Train
   attr_reader :number, :type, :current_station
 
@@ -52,8 +55,18 @@ class Train
   end
 end
 
-eurostar = Train.new(5, "passenger", 10)
 
+station = Station.new("Almaty")
+station.add_train("classic")
+station.add_train("test")
+station.push_train("test")
+station.all_trains
+
+route = Route.new('almaty', 'astana')
+route.add_station('karaganda')
+route.stations
+
+eurostar = Train.new(5, "passenger", 10)
 eurostar.speed_up(30)
 eurostar.current_speed
 eurostar.brake
