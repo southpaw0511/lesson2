@@ -3,7 +3,6 @@ class Route
 
   def initialize(first_s, last_s)
     @stations = [first_s, last_s]
-    puts "First station - #{first_s}, and Last station is - #{last_s}"
   end
 
   # def stations
