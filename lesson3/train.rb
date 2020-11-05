@@ -3,6 +3,7 @@ require_relative 'route.rb'
 
 class Train
   attr_reader :number, :type, :current_station
+  attr_writer :current_station
 
   def initialize(number, type, wagons)
     @number = number
@@ -40,10 +41,12 @@ class Train
     end
   end
 
-  def set_route(route)       
-    @route = route           
-    @current_station = @route.stations.first
-    @current_station.add_train(self)
+  def set_route(route) 
+    puts '-------------' 
+    puts route.inspect    
+    # @route = route           
+    # @current_station = @route.stations.first
+    # @current_station.add_train(self)
   end
 
   def next_station
@@ -55,20 +58,21 @@ class Train
   end
 end
 
+almaty = Station.new("Almaty")
+astana = Station.new("Astana")
+karaganda = Station.new("Karaganda")
+almaty.add_train("classic")
+almaty.add_train("test")
+almaty.push_train("test")
+almaty.all_trains
 
-station = Station.new("Almaty")
-station.add_train("classic")
-station.add_train("test")
-station.push_train("test")
-station.all_trains
-
-route = Route.new('almaty', 'astana')
-route.add_station('karaganda')
+route = Route.new(almaty, astana)
+route.add_station(karaganda)
 route.stations
-
+puts '----------------------'
 eurostar = Train.new(5, "passenger", 10)
 eurostar.speed_up(30)
 eurostar.current_speed
 eurostar.brake
 eurostar.add_wagons(4)
-eurostar.set_route(route)
+eurostar.set_route(almaty)
