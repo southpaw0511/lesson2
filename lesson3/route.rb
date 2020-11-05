@@ -22,9 +22,3 @@ class Route
     @stations.delete(station)
   end
 end
-
-route = Route.new('almaty', 'astana')
-
-route.add_station('karaganda')
-
-route.stations
