@@ -36,9 +36,3 @@ class Station
   end
 end
 
-station = Station.new("Almaty")
-station.add_train("classic")
-station.add_train("test")
-
-station.push_train("test")
-station.all_trains
