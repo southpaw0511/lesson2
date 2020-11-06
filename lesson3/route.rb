@@ -5,14 +5,6 @@ class Route
     @stations = [first_s, last_s]
   end
 
-  # def stations
-  #   @stations.each do |station|
-  #     puts "Station - #{station}"
-      
-  #   end
-  #   puts @stations
-  # end
-
   def add_station(station)
     @stations.insert(-2, station)
   end
