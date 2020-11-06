@@ -9,7 +9,6 @@ class Train
     @number = number
     @type = type
     @wagons = wagons
-    puts "Train number - #{number}; \nType - #{type}; \nNumber of wagons - #{wagons}."
     @current_speed = 0
 
   end
@@ -20,37 +19,33 @@ class Train
 
   def brake
     @current_speed = 0
-    puts "Train slows down, its current speed is = #{@current_speed}"
   end
 
   def current_speed
-    puts "Current speed - #{@current_speed}"
+    @current_speed}
   end
 
   def add_wagons(number)
     if @current_speed == 0
       @wagons += number
-      puts "#{number} wagons have been added"
     end
   end
 
   def del_wagons(number)
     if @current_speed == 0
       @wagons -= number
-      puts "#{number} wagons have been deleted"
     end
   end
 
-  def set_route(route) 
-    puts '-------------' 
-    puts route.inspect    
-    @route = route           
-    @current_station = @route.stations.first
+  def set_route(route)   
+    @route = route
+    @current_station_index = 0     
+    @current_station = @route.stations[@current_station_index]
     @current_station.add_train(self)
   end
 
   def next_station
-    @route.stations = [@current_station + 1]
+    @route.stations[@current_station_index + 1]
   end
 
   def previous_station
@@ -76,3 +71,5 @@ eurostar.current_speed
 eurostar.brake
 eurostar.add_wagons(4)
 eurostar.set_route(route_one)
+puts '---------------------'
+eurostar.next_station
