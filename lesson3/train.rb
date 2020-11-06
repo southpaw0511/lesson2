@@ -22,7 +22,7 @@ class Train
   end
 
   def current_speed
-    @current_speed}
+    @current_speed
   end
 
   def add_wagons(number)
@@ -42,6 +42,16 @@ class Train
     @current_station_index = 0     
     @current_station = @route.stations[@current_station_index]
     @current_station.add_train(self)
+  end
+
+  def move_forward
+    @current_station.delete_train(self)
+    @current_station = @route.stations[@current_station_index += 1]
+    @current_station.add_train(self)
+  end
+
+  def move_back
+    @current_station = @route.stations[@current_station_index -= 1]
   end
 
   def next_station
@@ -64,12 +74,10 @@ almaty.all_trains
 route_one = Route.new(almaty, astana)
 route_one.add_station(karaganda)
 route_one.stations
-puts '----------------------'
 eurostar = Train.new(5, "passenger", 10)
 eurostar.speed_up(30)
 eurostar.current_speed
 eurostar.brake
 eurostar.add_wagons(4)
 eurostar.set_route(route_one)
-puts '---------------------'
-eurostar.next_station
+eurostar.move_forward
