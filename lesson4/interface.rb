@@ -57,6 +57,7 @@ class Interface
           name = gets.chomp
           @stations << Station.new(name)
       end
+
       def create_train
           puts 'Is this a Cargo? yes/no '
           name = gets.chomp
@@ -68,11 +69,10 @@ class Interface
             @trains << PassengerTrain.new(number)
           end
       end
+
       def create_route
-          num = 1
-          @stations.each do |station|
-            puts "#{num} - #{station.name}"
-            num += 1 
+          @stations.each.with_index(1) do |station, i|
+            puts "#{i} - #{station.name}"
           end
           puts 'Enter the first station: '
           first = gets.to_i
@@ -82,37 +82,29 @@ class Interface
           @route = route
           puts "Route created #{route.name}"
       end
+
       def control_route
           puts 'Which route do you want to control: '
           show_routes
           route = @route[gets.to_i - 1]
           puts "Выбран маршрут #{route.name}"
           puts "1. Добавить станцию\n2. Удалить станцию"
-          answer = gets.chomp
-          if answer ==  '1'
-            puts 'Which station do you want added to Route?'
-            route.station_list
-            route.add_station(@stations[gets.to_i - 1])
-            puts 'Station added'
-          elsif answer == '2'
-            puts 'Which station do you want to delete from Route?'
-            route.station_list
-            route.delete_station(route.stations[gets.to_i - 1])
-            puts 'Station deleted'
-          end
+          answer_for_control(gets.chomp)
       end
+      
       def add_route_to_train
         train = select_train
-
+        
         puts 'Select route'
         show_routes
         train.set_route(@routes[gets.to_i - 1])
         puts "Route to train #{train.number} successfully specified"
       end
+      
       def add_wagon_to_train
-          train = select_train
-
-          puts 'How many wagons do you want to add: '
+        train = select_train
+        
+        puts 'How many wagons do you want to add: '
           num = gets.to_i
           if train.class == PassengerTrain
             num.times do
@@ -124,20 +116,22 @@ class Interface
             end
           end
           puts "To train #{train.number} has been added #{quantity} wagons"
-      end
-      def delete_wagon_from_train
+        end
+        
+        def delete_wagon_from_train
           train = select_train
-
+          
           puts 'How many wagons do you want to delete: '
-          num = gets.to_i
+            num = gets.to_i
           num.times do
             train.delete_wagons
           end
           puts "From train #{train.number} has been deleted #{quantity} wagons"
-      end
-      def control_train
+        end
+        
+        def control_train
           train = select_train
-
+          
           puts "Move train #{train.number} To station:\n1. Next\n2. Previous"
           case gets.chomp
           when '1'
@@ -146,33 +140,53 @@ class Interface
             train.move_back
           end
           puts "Train on station:  #{train.current_station.name}"
-      end
-      def list_stations
-        @stations.each.with_index(1) do |station, i|
-          puts "#{i}. #{station.name} | Trains #{station.trains.size}"
         end
-      end
-      def show_station_trains
-        puts 'Select station'
-        list_stations
-        station = @stations[gets.to_i - 1]
-        station.all_trains
-      end
-      def show_routes
-        @routes.each.with_index(1) do |route, i|
-          puts "#{i}. #{route.name}"
+        
+        def list_stations
+          @stations.each.with_index(1) do |station, i|
+            puts "#{i}. #{station.name} | Trains #{station.trains.size}"
+          end
         end
-      end
-      def select_train
-        puts 'Select train'
-        trains
-        train = @trains[gets.to_i - 1]
-      end
-      def trains
-        @trains.each.with_index(1) do  |train, i|
-          puts "#{i}. #{train.number} | Number of wagons in the train:  #{train.wagons.size} | class #{train.class}"
+        
+        def show_station_trains
+          puts 'Select station'
+          list_stations
+          station = @stations[gets.to_i - 1]
+          station.all_trains
         end
+        
+        def show_routes
+          @routes.each.with_index(1) do |route, i|
+            puts "#{i}. #{route.name}"
+          end
+        end
+        
+        def select_train
+          puts 'Select train'
+          trains
+          train = @trains[gets.to_i - 1]
+        end
+        
+        def trains
+          @trains.each.with_index(1) do  |train, i|
+            puts "#{i}. #{train.number} | Number of wagons in the train:  #{train.wagons.size} | class #{train.class}"
+          end
+        end
+        
+        def answer_for_control(str)
+          if str == '1'
+            puts 'Which station do you want added to Route?'
+            route.station_list
+            route.add_station(@stations[gets.to_i - 1])
+            puts 'Station added'
+          elsif str == '2'
+            puts 'Which station do you want to delete from Route?'
+            route.station_list
+            route.delete_station(route.stations[gets.to_i - 1])
+            puts 'Station deleted'
+          end
+        end
+        
       end
     end
   end
-end
