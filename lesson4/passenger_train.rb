@@ -1,10 +1,10 @@
 class PassengerTrain < Train
   def initialize
-    @type = :passenger_train
+    @type = :passenger
   end
 
   def add_wagons(wagon)
-    if @type == :passenger_train
+    if @type == PassengerWagon.type
       @wagons << wagon
     end
   end
