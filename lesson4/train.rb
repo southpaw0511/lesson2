@@ -2,13 +2,13 @@ require_relative 'station.rb'
 require_relative 'route.rb'
 
 class Train
-  attr_reader :number, :type, :current_station
+  attr_reader :number, :type, :current_station, :wagons
   attr_writer :current_station
 
   def initialize(number, type, wagons)
     @number = number
     @type = type
-    @wagons = wagons
+    @wagons = []
     @current_speed = 0
 
   end

@@ -8,7 +8,7 @@ class Interface
 
   def start
     loop do
-      puts '0. Create the station'
+      puts "\n0. Create the station"
       puts '1. Create the train'
       puts '2. Create Route'
       puts '3. Control Route'
@@ -45,10 +45,12 @@ class Interface
       when 9
         show_station_trains
       when 10
-        break
+        brake
       else 
         puts 'Wrong!'
       end
+    end
+  end
 
       private
 
@@ -64,9 +66,9 @@ class Interface
           puts 'Write the number of train: '
           number = gets.to_i
           if name == 'yes'
-            @trains << CargoTrain.new(number)
+            @trains << CargoTrain.new
           else
-            @trains << PassengerTrain.new(number)
+            @trains << PassengerTrain.new
           end
       end
 
@@ -79,17 +81,28 @@ class Interface
           puts 'Enter the last station: '
           last = gets.to_i
           route = Route.new(@stations[first], @stations[last])
-          @route = route
-          puts "Route created #{route.name}"
+          @routes << route
+          puts "Route created #{route.stations}"
       end
 
       def control_route
           puts 'Which route do you want to control: '
           show_routes
-          route = @route[gets.to_i - 1]
-          puts "Выбран маршрут #{route.name}"
-          puts "1. Добавить станцию\n2. Удалить станцию"
-          answer_for_control(gets.chomp)
+          route = @routes[gets.to_i - 1]
+          puts "Select route #{route.stations}"
+          puts "1. Add station\n2. Delete station"
+          str = gets.chomp
+          if str == '1'
+            puts 'Which station do you want added to Route?'
+            route.station_list
+            route.add_station(@stations[gets.to_i - 1])
+            puts 'Station added'
+          elsif str == '2'
+            puts 'Which station do you want to delete from Route?'
+            route.station_list
+            route.delete_station(route.stations[gets.to_i - 1])
+            puts 'Station deleted'
+          end
       end
       
       def add_route_to_train
@@ -157,7 +170,7 @@ class Interface
         
         def show_routes
           @routes.each.with_index(1) do |route, i|
-            puts "#{i}. #{route.name}"
+            puts "#{i}. #{route.stations}"
           end
         end
         
@@ -172,21 +185,4 @@ class Interface
             puts "#{i}. #{train.number} | Number of wagons in the train:  #{train.wagons.size} | class #{train.class}"
           end
         end
-        
-        def answer_for_control(str)
-          if str == '1'
-            puts 'Which station do you want added to Route?'
-            route.station_list
-            route.add_station(@stations[gets.to_i - 1])
-            puts 'Station added'
-          elsif str == '2'
-            puts 'Which station do you want to delete from Route?'
-            route.station_list
-            route.delete_station(route.stations[gets.to_i - 1])
-            puts 'Station deleted'
-          end
-        end
-        
-      end
-    end
   end
