@@ -1,13 +1,13 @@
 class CargoTrain < Train
   attr_reader :type
-  
+
   def initialize(number)
-    @number = :number
     @type = 'Cargo'
+    super
   end
 
   def add_wagons(wagon)
-    if @type == CargoWagon.type
+    if @type == wagon.type
       @wagons << wagon
     end
   end

@@ -19,5 +19,11 @@ class Station
       train.type == type
     end
   end
+
+  def show_all
+    @trains.each do |train|
+      puts train
+    end
+  end
 end
 

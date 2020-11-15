@@ -45,7 +45,7 @@ class Interface
       when 9
         show_station_trains
       when 10
-        brake
+        break
       else 
         puts 'Wrong!'
       end
@@ -133,13 +133,13 @@ class Interface
         end
         
         def delete_wagon_from_train
-          train =@trains[0]
+          train = @trains[0]
           
           puts 'How many wagons do you want to delete: '
             num = gets.to_i
-          num.times do
-            train.delete_wagons
-          end
+            num.times do
+            train.del_wagons
+            end
           puts "From train #{train.number} has been deleted #{num} wagons"
         end
         
@@ -158,7 +158,7 @@ class Interface
         
         def list_stations
           @stations.each.with_index(1) do |station, i|
-            puts "#{i}. #{station.name} | Trains #{station.trains.size}"
+            puts "#{i}. #{station.name}"
           end
         end
         
@@ -166,7 +166,7 @@ class Interface
           puts 'Select station'
           list_stations
           station = @stations[gets.to_i - 1]
-          station.all_trains
+          station.show_all
         end
         
         def show_routes
@@ -174,16 +174,4 @@ class Interface
             puts "#{i}. #{route.stations}"
           end
         end
-        
-        # def select_train
-        #   puts 'Select train'
-        #   trains
-        #   train = @trains[gets.to_i - 1]
-        # end
-        
-        # def trains
-        #   @trains.each.with_index(1) do  |train, i|
-        #     puts "#{i}. #{train.number}\nNumber of wagons in the train:  #{train.wagons.size}\nclass #{train.class}"
-        #   end
-        # end
   end
