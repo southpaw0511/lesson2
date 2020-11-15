@@ -1,6 +1,8 @@
 class PassengerTrain < Train
-  
-  def initialize
+  attr_reader :type
+
+  def initialize(number)
+    @number = :number
     @type = :passenger
   end
 

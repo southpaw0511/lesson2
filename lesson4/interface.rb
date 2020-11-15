@@ -62,14 +62,15 @@ class Interface
 
       def create_train
           puts 'Is this a Cargo? yes/no '
-          name = gets.chomp
+          train_type = gets.chomp
           puts 'Write the number of train: '
           number = gets.to_i
           if name == 'yes'
-            @trains << CargoTrain.new
+            @trains << CargoTrain.new(number: name)
           else
-            @trains << PassengerTrain.new
+            @trains << PassengerTrain.new(number: name)
           end
+          puts @trains
       end
 
       def create_route
@@ -106,7 +107,7 @@ class Interface
       end
       
       def add_route_to_train
-        train = select_train
+        train = @trains[0]
         
         puts 'Select route'
         show_routes
@@ -115,7 +116,7 @@ class Interface
       end
       
       def add_wagon_to_train
-        train = select_train
+        train = @trains[0]
         
         puts 'How many wagons do you want to add: '
           num = gets.to_i
@@ -128,22 +129,22 @@ class Interface
               train.add_wagons(CargoWagon.new)
             end
           end
-          puts "To train #{train.number} has been added #{quantity} wagons"
+          puts "To train #{train.number} has been added #{num} wagons"
         end
         
         def delete_wagon_from_train
-          train = select_train
+          train =@trains[0]
           
           puts 'How many wagons do you want to delete: '
             num = gets.to_i
           num.times do
             train.delete_wagons
           end
-          puts "From train #{train.number} has been deleted #{quantity} wagons"
+          puts "From train #{train.number} has been deleted #{num} wagons"
         end
         
         def control_train
-          train = select_train
+          train = @trains[0]
           
           puts "Move train #{train.number} To station:\n1. Next\n2. Previous"
           case gets.chomp
@@ -174,15 +175,15 @@ class Interface
           end
         end
         
-        def select_train
-          puts 'Select train'
-          trains
-          train = @trains[gets.to_i - 1]
-        end
+        # def select_train
+        #   puts 'Select train'
+        #   trains
+        #   train = @trains[gets.to_i - 1]
+        # end
         
-        def trains
-          @trains.each.with_index(1) do  |train, i|
-            puts "#{i}. #{train.number} | Number of wagons in the train:  #{train.wagons.size} | class #{train.class}"
-          end
-        end
+        # def trains
+        #   @trains.each.with_index(1) do  |train, i|
+        #     puts "#{i}. #{train.number}\nNumber of wagons in the train:  #{train.wagons.size}\nclass #{train.class}"
+        #   end
+        # end
   end
