@@ -65,10 +65,10 @@ class Interface
           train_type = gets.chomp
           puts 'Write the number of train: '
           number = gets.to_i
-          if name == 'yes'
-            @trains << CargoTrain.new(number: name)
+          if train_type == 'yes'
+            @trains << CargoTrain.new(number: train_type)
           else
-            @trains << PassengerTrain.new(number: name)
+            @trains << PassengerTrain.new(number: train_type)
           end
           puts @trains
       end

@@ -3,7 +3,7 @@ class CargoTrain < Train
   
   def initialize(number)
     @number = :number
-    @type = :cargo
+    @type = 'Cargo'
   end
 
   def add_wagons(wagon)
