@@ -5,10 +5,4 @@ class CargoTrain < Train
     @type = 'Cargo'
     super
   end
-
-  def add_wagons(wagon)
-    if @type == wagon.type
-      @wagons << wagon
-    end
-  end
 end

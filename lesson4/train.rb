@@ -24,6 +24,12 @@ class Train
     @current_speed
   end
 
+  def add_wagons(wagon)
+    if @type == wagon.type
+      @wagons << wagon
+    end
+  end
+
   def del_wagons
     @wagons.delete_at(0) if @current_speed == 0
   end
