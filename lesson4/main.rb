@@ -7,6 +7,8 @@ require_relative 'passenger_wagon'
 require_relative 'cargo_train'
 require_relative 'cargo_wagon'
 require_relative 'interface'
+require_relative 'company_name'
+require_relative 'instance_counter'
 
 
 interface = Interface.new

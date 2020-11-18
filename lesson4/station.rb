@@ -1,9 +1,20 @@
+require_relative 'instance_counter'
+
 class Station
   attr_reader :name
+  include InstanceCounter
+  @@stations = []
 
   def initialize(name)
     @name = name
     @trains = []
+    @@stations << self
+  end
+
+  def self.all
+    @@stations.each.with_index(1) do |station, i|
+      puts "#{i} - #{station.name}"
+    end
   end
 
   def add_train(train_name)
@@ -26,4 +37,3 @@ class Station
     end
   end
 end
-

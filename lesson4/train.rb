@@ -1,15 +1,24 @@
 require_relative 'station.rb'
 require_relative 'route.rb'
+require_relative 'company_name'
+require_relative 'instance_counter'
 
 class Train
   attr_reader :number, :type, :current_station, :wagons
   attr_writer :current_station
+  include CompanyName
+  include InstanceCounter
+  @@trains = {}
 
   def initialize(number)
     @number = number
     @wagons = []
     @current_speed = 0
+    @@trains[number] = self
+  end
 
+  def find(number)
+    @@trains[number]
   end
 
   def speed_up(number)
