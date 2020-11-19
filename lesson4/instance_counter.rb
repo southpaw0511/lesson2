@@ -9,7 +9,7 @@ module InstanceCounter
     attr_reader :instances
 
     def counter
-      @@instances ||= 0
+      @@instances ||= nil
       @@instances += 1
     end
   end
