@@ -11,9 +11,9 @@ class Station
     @@stations << self
   end
 
-  def self.all
-    @@stations.each.with_index(1) do |station, i|
-      puts "#{i} - #{station.name}"
+  def all
+    @@stations.each.with_index(1) do |station|
+      return station
     end
   end
 
@@ -28,12 +28,6 @@ class Station
   def list_train_type(type)
     @trains.select do |train|
       train.type == type
-    end
-  end
-
-  def show_all
-    @trains.each do |train|
-      puts train
     end
   end
 end
