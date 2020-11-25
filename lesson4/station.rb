@@ -3,6 +3,7 @@ require_relative 'instance_counter'
 class Station
   attr_reader :name
   include InstanceCounter
+  STATION_NAME = /[[:upper:]]+[[:lower:]]/
   @@stations = []
 
   def initialize(name)
@@ -29,5 +30,11 @@ class Station
     @trains.select do |train|
       train.type == type
     end
+  end
+
+  protected
+
+  def validate!
+    raise 'Invalid station name' if @name !~ STATION_NAME
   end
 end

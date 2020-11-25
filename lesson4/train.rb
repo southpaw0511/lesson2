@@ -8,12 +8,15 @@ class Train
   attr_writer :current_station
   include CompanyName
   include InstanceCounter
+  include Valid
+  TRAIN_NUMBER_FORMAT = /^[[:alnum:]]{3}\-?[[:alnum:]]{2}$/
   @@trains = {}
 
   def initialize(number)
     @number = number
     @wagons = []
     @current_speed = 0
+    validate!
     @@trains[number] = self
   end
 
@@ -66,5 +69,11 @@ class Train
 
   def previous_station
     @route.stations[@current_station_index - 1]
+  end
+
+  protected
+
+  def validate!
+    raise 'Invalid format of number! Please use format XXX-XX or XXXXX' if @number !~ TRAIN_NUMBER_FORMAT
   end
 end
