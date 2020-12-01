@@ -10,7 +10,7 @@ class Train
   include CompanyName
   include InstanceCounter
   include Valid
-  TRAIN_NUMBER_FORMAT = /^[[:alnum:]]{3}\-?[[:alnum:]]{2}$/
+  TRAIN_NUMBER_FORMAT = /^[0-9]{3}\-?[0-9]{2}$/
   @@trains = {}
 
   def initialize(number)
@@ -82,6 +82,6 @@ class Train
   protected
 
   def validate!
-    raise 'Invalid format of number! Please use format XXX-XX or XXXXX' if @number !~ TRAIN_NUMBER_FORMAT
+    raise "#{@number}" if @number !~ TRAIN_NUMBER_FORMAT
   end
 end

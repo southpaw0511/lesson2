@@ -19,7 +19,8 @@ class Interface
       puts '8. List stations'
       puts '9. List Trains on Stations'
       puts '10. Information on every train'
-      puts '11. Exit'
+      puts '11. Filling wagon'
+      puts '12. Exit'
       puts 'Select: '
 
       input = gets.chomp.to_i
@@ -48,6 +49,8 @@ class Interface
       when 10
         all_trains
       when 11
+        filling_train
+      when 12
         break
       else 
         puts 'Wrong!'
@@ -67,11 +70,11 @@ class Interface
           puts 'Is this a Cargo? yes/no '
           train_type = gets.chomp
           puts 'Write the number of train: '
-          number = gets.to_i
+          number = gets.chomp
           if train_type == 'yes'
-            @trains << CargoTrain.new(number: train_type)
+            @trains << CargoTrain.new(number)
           else
-            @trains << PassengerTrain.new(number: train_type)
+            @trains << PassengerTrain.new(number)
           end
           puts @trains
       end
@@ -154,6 +157,21 @@ class Interface
             end
           end  
         end
+
+        def filling_train
+          train = select_train
+          puts 'Choose wagon: '
+          train.wagons.each.with_index(1) {|wagon, i| puts "#{i} - #{wagon.class}"}
+          wagon = train.wagons[gets.to_i - 1]
+          if wagon.class == CargoWagon
+            puts "Enter quantity: "
+            quantity = gets.to_i
+            wagon.filling_volume(quantity)
+          elsif wagon.class == PassengerWagon
+            wagon.take_seat
+          end
+          puts "Ready!"
+        end  
         
         def delete_wagon_from_train
           train = @trains[0]
@@ -196,5 +214,15 @@ class Interface
           @routes.each.with_index(1) do |route, i|
             puts "#{i}. #{route.stations}"
           end
+        end
+
+        def select_train
+          puts 'Выберите поезд: '
+          trains
+          train = @trains[gets.to_i - 1]
+        end
+      
+        def trains
+          @trains.each.with_index(1) {  |train, x| puts "#{x}. #{train.number} | количество вагонов в составе:  #{train.wagons.size} | класс #{train.class}" }
         end
   end
