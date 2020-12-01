@@ -18,7 +18,8 @@ class Interface
       puts '7. Control Train'
       puts '8. List stations'
       puts '9. List Trains on Stations'
-      puts '10. Exit'
+      puts '10. Information on every train'
+      puts '11. Exit'
       puts 'Select: '
 
       input = gets.chomp.to_i
@@ -45,6 +46,8 @@ class Interface
       when 9
         show_station_trains
       when 10
+        all_trains
+      when 11
         break
       else 
         puts 'Wrong!'
@@ -121,15 +124,35 @@ class Interface
         puts 'How many wagons do you want to add: '
           num = gets.to_i
           if train.class == PassengerTrain
+            puts 'How many seats you want to add: '
+            quantity = gets.to_i
             num.times do
-              train.add_wagons(PassengerWagon.new)
+              train.add_wagons(PassengerWagon.new(quantity))
             end
           else
+            puts 'Which volume you want to add: '
+            volume = gets.to_i
             num.times do
-              train.add_wagons(CargoWagon.new)
+              train.add_wagons(CargoWagon.new(volume))
             end
           end
           puts "To train #{train.number} has been added #{num} wagons"
+        end
+
+        def all_trains
+          @stations.each do |station|
+            puts "#{station.name} ......................"
+            station.enum_trains do |train| 
+              puts "Number: #{train.number}\nType: #{train.class}\nWagons: #{train.wagons.length} "
+              train.enum_wagons do |wagon, i| 
+                if wagon.class == CargoWagon 
+                  puts "#{i} - Wagon type: #{wagon.class}\nVolume: #{wagon.total_volume}\nAvailable volume: #{wagon.free_space} "
+                elsif wagon.class == PassengerWagon
+                  puts "#{i} - Wagon type: #{wagon.class}\nSeats: #{wagon.passenger_seat.length}\nAvailable and Occupied seats: #{wagon.seats} "
+                end
+              end
+            end
+          end  
         end
         
         def delete_wagon_from_train

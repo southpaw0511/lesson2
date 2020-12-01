@@ -2,6 +2,7 @@ require_relative 'station.rb'
 require_relative 'route.rb'
 require_relative 'company_name'
 require_relative 'instance_counter'
+require_relative 'valid'
 
 class Train
   attr_reader :number, :type, :current_station, :wagons
@@ -39,6 +40,13 @@ class Train
   def add_wagons(wagon)
     if @type == wagon.type
       @wagons << wagon
+    end
+  end
+
+  # Передача вагонов в блок
+  def wagons_transfer(&block)
+    @wagons.each.with_index(1) do |wagon, i|
+      yield(wagon, i)
     end
   end
 

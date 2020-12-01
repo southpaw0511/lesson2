@@ -18,6 +18,13 @@ class Station
     end
   end
 
+  # Передача поездов в блок
+  def train_transfer(&block)
+    @trains.each do |train|
+      yield(train)
+    end 
+  end
+
   def add_train(train_name)
     @trains << train_name
   end
