@@ -13,16 +13,16 @@ class Station
   end
 
   def all
-    @@stations.each.with_index(1) do |station|
+    @@stations.each do |station|
       return station
     end
   end
 
   # Передача поездов в блок
-  def train_transfer(&block)
+  def train_transfer
     @trains.each do |train|
       yield(train)
-    end 
+    end
   end
 
   def add_train(train_name)

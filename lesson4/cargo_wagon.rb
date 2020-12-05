@@ -1,7 +1,6 @@
 class CargoWagon < Wagon
-  
   def initialize(volume)
-    @type = "Cargo"
+    @type = 'Cargo'
     @total_volume = volume
     @liquid = 0
   end

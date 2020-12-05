@@ -33,18 +33,14 @@ class Train
     @current_speed = 0
   end
 
-  def current_speed
-    @current_speed
-  end
+  attr_reader :current_speed
 
   def add_wagons(wagon)
-    if @type == wagon.type
-      @wagons << wagon
-    end
+    @wagons << wagon if @type == wagon.type
   end
 
   # Передача вагонов в блок
-  def wagons_transfer(&block)
+  def wagons_transfer
     @wagons.each.with_index(1) do |wagon, i|
       yield(wagon, i)
     end
@@ -54,9 +50,9 @@ class Train
     @wagons.delete_at(0) if @current_speed == 0
   end
 
-  def set_route(route)   
+  def set_route(route)
     @route = route
-    @current_station_index = 0     
+    @current_station_index = 0
     @current_station = @route.stations[@current_station_index]
     @current_station.add_train(self)
   end
@@ -82,6 +78,6 @@ class Train
   protected
 
   def validate!
-    raise "#{@number}" if @number !~ TRAIN_NUMBER_FORMAT
+    raise @number.to_s if @number !~ TRAIN_NUMBER_FORMAT
   end
 end

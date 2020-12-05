@@ -19,5 +19,4 @@ class PassengerWagon < Wagon
     puts "Occupied seats - #{@passenger_seat.count(1)}"
     puts "Available seats - #{@passenger_seat.count(0)}"
   end
-
 end
