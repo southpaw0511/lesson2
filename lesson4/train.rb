@@ -2,22 +2,25 @@ require_relative 'station.rb'
 require_relative 'route.rb'
 require_relative 'company_name'
 require_relative 'instance_counter'
-require_relative 'valid'
+require_relative 'validation'
 
 class Train
   attr_reader :number, :type, :current_station, :wagons
   attr_writer :current_station
   include CompanyName
   include InstanceCounter
-  include Valid
+  include Validation
   TRAIN_NUMBER_FORMAT = /^[0-9]{3}\-?[0-9]{2}$/
   @@trains = {}
+
+  validate :number, :presence
+  validate :number, :type, String
+  validate :number, :format, TRAIN_NUMBER_FORMAT
 
   def initialize(number)
     @number = number
     @wagons = []
     @current_speed = 0
-    validate!
     @@trains[number] = self
   end
 
@@ -73,11 +76,5 @@ class Train
 
   def previous_station
     @route.stations[@current_station_index - 1]
-  end
-
-  protected
-
-  def validate!
-    raise @number.to_s if @number !~ TRAIN_NUMBER_FORMAT
   end
 end

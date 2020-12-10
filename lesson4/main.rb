@@ -9,7 +9,7 @@ require_relative 'cargo_wagon'
 require_relative 'interface'
 require_relative 'company_name'
 require_relative 'instance_counter'
-require_relative 'valid'
+require_relative 'validation'
 
 interface = Interface.new
 interface.start

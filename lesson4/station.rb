@@ -6,6 +6,9 @@ class Station
   STATION_NAME = /[[:upper:]]+[[:lower:]]/
   @@stations = []
 
+  validate :name, :presence
+  validate :name, :type, String
+
   def initialize(name)
     @name = name
     @trains = []
@@ -37,11 +40,5 @@ class Station
     @trains.select do |train|
       train.type == type
     end
-  end
-
-  protected
-
-  def validate!
-    raise 'Invalid station name' if @name !~ STATION_NAME
   end
 end
