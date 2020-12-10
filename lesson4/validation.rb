@@ -16,7 +16,7 @@ module Validation
   module InstanceMethods
     def validate!
       self.class.validates.each do |validation|
-        send("validate_#{validation[1][0]}", validation[0], validation[1])
+        send("#{validation[1][0]}", validation[0], validation[1])
       end
     end
 
@@ -29,19 +29,15 @@ module Validation
 
     protected
 
-    def presence(attr_name, _args)
-      value = instance_variable_get("@#{attr_name}")
-      raise ArgumentError, 'Empty string or nil' if value.nil? || value == ''
-    end 
-
-    def format(attr_name, args)
-      raise ArgumentError, 'Regex not passed' if args[1].nil?
-      raise ArgumentError, 'Regex mismatch' unless instance_variable_get("@#{attr_name}") =~ args[1]
+    def presence(name, *args)
+      raise 'Name is blank!' if name.empty? || name.nil?
     end
 
-    def type(attr_name, args)
-      value = instance_variable_get("@#{attr_name}")
-      raise ArgumentError, 'Class name not passed' if args[1].nil?
-      raise TypeError, 'Variable type mismatch' unless value.instance_of?(args[1]) || value.instance_of?(args[-1])
+    def format(name, *args)
+      raise 'Incorrect format!' if name !~ args[0]
+    end
+
+    def type(name, *args)
+      raise 'Type error!' if name.class != args[0]
     end
 end
