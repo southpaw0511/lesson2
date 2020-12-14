@@ -16,7 +16,8 @@ module Validation
   module InstanceMethods
     def validate!
       self.class.validates.each do |validation|
-        send("#{validation[1][0]}", validation[0], validation[1])
+        val = instance_variable_get("@#{validation[0][0]}")
+        send(val)
       end
     end
 
@@ -30,7 +31,8 @@ module Validation
     protected
 
     def presence(name, *args)
-      raise 'Name is blank!' if name.empty? || name.nil?
+      value = instance_variable_get("@#{name}")
+      raise 'Name is blank!' if value.empty? || value.nil?
     end
 
     def format(name, *args)
@@ -40,4 +42,6 @@ module Validation
     def type(name, *args)
       raise 'Type error!' if name.class != args[0]
     end
+  end
+  
 end
